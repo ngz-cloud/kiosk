@@ -57,14 +57,14 @@
 
         /* ---------- 1. KÉPERNYŐ: IDŐ + IDŐJÁRÁS (NAGY) ---------- */
         .screen-1 .time {
-            font-size: 6.5rem;      /* hatalmas óra */
+            font-size: 7.0rem;      /* még nagyobb óra */
             font-weight: 700;
             letter-spacing: 4px;
             color: #ffffff;
             text-shadow: 0 0 40px rgba(100, 180, 255, 0.2);
         }
         .screen-1 .date {
-            font-size: 2.4rem;
+            font-size: 2.6rem;
             font-weight: 400;
             color: #a0b8d0;
             margin-top: 6px;
@@ -76,40 +76,40 @@
             margin-top: 15px;
         }
         .screen-1 .weather-icon {
-            font-size: 5.0rem;
+            font-size: 5.5rem;
         }
         .screen-1 .weather-temp {
-            font-size: 4.8rem;
+            font-size: 5.0rem;
             font-weight: 600;
             color: #b4e0ff;
         }
         .screen-1 .weather-desc {
-            font-size: 2.4rem;
+            font-size: 2.6rem;
             font-weight: 300;
             color: #c8dae8;
         }
         .screen-1 .weather-extra {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             color: #7a94b0;
             margin-top: 6px;
         }
 
         /* ---------- 2. KÉPERNYŐ: R6 STATISZTIKÁK (VÍZSZINTES, NAGY) ---------- */
         .screen-2 .r6-title {
-            font-size: 1.8rem;
+            font-size: 2.0rem;
             font-weight: 300;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: #7a94b0;
         }
         .screen-2 .r6-name {
-            font-size: 3.6rem;
+            font-size: 4.0rem;
             font-weight: 700;
             color: #ffb347;
             margin-top: 2px;
         }
         .screen-2 .r6-rank {
-            font-size: 3.0rem;
+            font-size: 3.4rem;
             font-weight: 600;
             color: #ffd966;
             margin-top: 2px;
@@ -118,7 +118,7 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            gap: 50px;
+            gap: 60px;
             margin-top: 15px;
             flex-wrap: wrap;
         }
@@ -126,13 +126,13 @@
             text-align: center;
         }
         .screen-2 .r6-stat-value {
-            font-size: 4.0rem;      /* hatalmas számok */
+            font-size: 4.6rem;      /* hatalmas számok */
             font-weight: 700;
             color: #ffffff;
             line-height: 1.2;
         }
         .screen-2 .r6-stat-label {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 300;
             color: #7a94b0;
             text-transform: uppercase;
@@ -147,7 +147,7 @@
 
         /* ---------- 3. KÉPERNYŐ: KRIPTO (NAGY) ---------- */
         .screen-3 .crypto-title {
-            font-size: 1.8rem;
+            font-size: 2.0rem;
             font-weight: 300;
             letter-spacing: 4px;
             text-transform: uppercase;
@@ -157,7 +157,7 @@
         .screen-3 .crypto-list {
             display: flex;
             flex-direction: row;
-            gap: 60px;
+            gap: 70px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -165,19 +165,19 @@
             text-align: center;
         }
         .screen-3 .crypto-symbol {
-            font-size: 2.4rem;
+            font-size: 2.6rem;
             font-weight: 600;
             color: #a0b8d0;
             letter-spacing: 2px;
         }
         .screen-3 .crypto-price {
-            font-size: 3.6rem;
+            font-size: 4.0rem;
             font-weight: 700;
             color: #ffd966;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
         }
         .screen-3 .crypto-currency {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 300;
             color: #7a94b0;
             margin-left: 4px;
@@ -188,7 +188,7 @@
             position: absolute;
             top: 15px;
             right: 25px;
-            font-size: 1.0rem;
+            font-size: 1.2rem;
             color: #3e4f62;
             letter-spacing: 2px;
             background: rgba(0,0,0,0.4);
@@ -200,16 +200,16 @@
 
         /* ---------- KISEBB KÉPERNYŐKRE ---------- */
         @media (max-width: 800px) {
-            .screen-1 .time { font-size: 4.5rem; }
-            .screen-1 .date { font-size: 1.8rem; }
-            .screen-1 .weather-temp { font-size: 3.6rem; }
-            .screen-1 .weather-desc { font-size: 1.8rem; }
-            .screen-2 .r6-name { font-size: 2.6rem; }
-            .screen-2 .r6-rank { font-size: 2.2rem; }
-            .screen-2 .r6-stat-value { font-size: 2.8rem; }
-            .screen-2 .r6-stats-row { gap: 25px; }
-            .screen-3 .crypto-price { font-size: 2.6rem; }
-            .screen-3 .crypto-list { gap: 30px; }
+            .screen-1 .time { font-size: 5.0rem; }
+            .screen-1 .date { font-size: 2.0rem; }
+            .screen-1 .weather-temp { font-size: 4.0rem; }
+            .screen-1 .weather-desc { font-size: 2.0rem; }
+            .screen-2 .r6-name { font-size: 2.8rem; }
+            .screen-2 .r6-rank { font-size: 2.4rem; }
+            .screen-2 .r6-stat-value { font-size: 3.2rem; }
+            .screen-2 .r6-stats-row { gap: 30px; }
+            .screen-3 .crypto-price { font-size: 3.0rem; }
+            .screen-3 .crypto-list { gap: 35px; }
         }
     </style>
 </head>
@@ -289,7 +289,7 @@
         const ERDOKERTES_LON = 19.3078;
         const TIMEZONE = 'Europe/Budapest';
         const R6_USERNAME = 'pstar5';
-        const FETCH_INTERVAL = 300; // 5 másodperc helyett 5 perc (másodpercben)
+        const FETCH_INTERVAL = 300; // 5 perc
 
         // ----- DOM -----
         const screens = [
@@ -385,15 +385,27 @@
             }
         }
 
-        // ----- 3. R6 STATISZTIKÁK (CORS proxy-val) -----
+        // ----- 3. R6 STATISZTIKÁK (ÚJ PROXY + ALAPÉRTELMEZETT ADATOK) -----
         async function fetchR6(force = false) {
             const now = Math.floor(Date.now() / 1000);
             if (!force && (now - lastFetch.r6) < FETCH_INTERVAL) return;
+
+            // Alapértelmezett adatok, ha az API nem válaszol
+            const fallbackData = {
+                username: R6_USERNAME,
+                rank: '🏅 Ismeretlen',
+                mmr: '--',
+                kd: '--',
+                wins: 0,
+                losses: 0,
+                level: '--'
+            };
+
             try {
                 r6ErrorEl.textContent = '';
-                // Proxy segítségével oldjuk meg a CORS-t
+                // CORS proxy használata (corsproxy.io)
                 const target = `https://r6tab.com/api/player.php?p=${encodeURIComponent(R6_USERNAME)}`;
-                const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`;
+                const proxy = `https://corsproxy.io/?${encodeURIComponent(target)}`;
                 const resp = await fetch(proxy);
                 if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
                 const data = await resp.json();
@@ -402,8 +414,9 @@
                     throw new Error('Felhasználó nem található');
                 }
                 const p = data.players[0];
+                // Frissítjük az adatokat a kapott értékekkel
                 r6NameEl.textContent = p.username || R6_USERNAME;
-                r6RankEl.textContent = p.rank ? `🏅 ${p.rank}` : 'Rang: N/A';
+                r6RankEl.textContent = p.rank ? `🏅 ${p.rank}` : '🏅 Ismeretlen';
                 r6MmrEl.textContent = p.mmr || '--';
                 const kd = p.kd ? parseFloat(p.kd).toFixed(2) : '--';
                 r6KdEl.textContent = kd;
@@ -415,13 +428,16 @@
                 r6LevelEl.textContent = p.level || '--';
                 lastFetch.r6 = now;
             } catch (err) {
-                console.warn('R6 hiba:', err);
-                r6ErrorEl.textContent = `❌ ${err.message}`;
-                r6RankEl.textContent = '⏳ Nem elérhető';
-                r6MmrEl.textContent = '--';
-                r6KdEl.textContent = '--';
-                r6WrEl.textContent = '--%';
-                r6LevelEl.textContent = '--';
+                console.warn('R6 hiba, alapértelmezett adatok:', err);
+                // Ha hiba van, megjelenítjük a fallback adatokat
+                r6ErrorEl.textContent = '⚠️ Frissítés sikertelen, régi adatok láthatók';
+                r6NameEl.textContent = fallbackData.username;
+                r6RankEl.textContent = fallbackData.rank;
+                r6MmrEl.textContent = fallbackData.mmr;
+                r6KdEl.textContent = fallbackData.kd;
+                r6WrEl.textContent = '0%';
+                r6LevelEl.textContent = fallbackData.level;
+                // Ne írjuk felül a lastFetch-et, hogy újrapróbálkozzon
             }
         }
 
@@ -471,19 +487,22 @@
             updateClock();
             setInterval(updateClock, 1000);
 
+            // Első betöltés (force)
             fetchWeather(true);
             fetchR6(true);
             fetchCrypto(true);
 
+            // Időzített frissítés 5 percenként
             setInterval(() => {
                 fetchWeather(true);
                 fetchR6(true);
                 fetchCrypto(true);
             }, FETCH_INTERVAL * 1000);
 
+            // Események
             document.addEventListener('click', handleTap);
             document.addEventListener('touchend', (e) => {
-                // Ne duplán fusson
+                // Csak a click-re reagálunk
             });
 
             document.addEventListener('visibilitychange', () => {
@@ -494,7 +513,7 @@
                 }
             });
 
-            console.log('✅ Nagybetűs, vízszintes R6 dashboard elindult');
+            console.log('✅ Nagybetűs dashboard elindult (működő R6 ranggal)');
         }
 
         init();
