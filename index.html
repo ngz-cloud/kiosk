@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Okos kijelző - Fektetett</title>
+    <style>
+        /* ----- Alapok ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b0e14;
+            color: #f0f4f8;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            user-select: none;
+            touch-action: none;
+        }
+
+        /* ----- Dashboard: VÍZSZINTES (fektetett) elrendezés ----- */
+        .dashboard {
+            width: 100vw;
+            height: 100vh;
+            max-width: 1440px;   /* Redmi 6A fektetett szélessége */
+            max-height: 720px;   /* Redmi 6A fektetett magassága */
+            display: flex;
+            flex-direction: row;   /* <--- ETTŐL LESZ FEKTETETT: egymás mellé rendez */
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px 30px;
+            background: radial-gradient(circle at 70% 30%, #1a1f2b, #0b0e14);
+            gap: 10px;
+        }
+
+        /* ----- Mindhárom blokk egyformán nyúljon, de középre igazodjon ----- */
+        .block {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            padding: 5px 0;
+        }
+
+        /* ----- 1. IDŐ (bal oldal) ----- */
+        .time {
+            font-size: 4.4rem;      /* Fektetettben kisebb, de így is nagy */
+            font-weight: 700;
+            letter-spacing: 3px;
+            line-height: 1.1;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(100, 180, 255, 0.15);
+        }
+        .date {
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            color: #a0b8d0;
+        }
+
+        /* ----- 2. IDŐJÁRÁS (középen) ----- */
+        .weather-icon {
+            font-size: 3.6rem;
+            line-height: 1.2;
+        }
+        .weather-temp {
+            font-size: 3.0rem;
+            font-weight: 600;
+            color: #b4e0ff;
+            text-shadow: 0 0 20px rgba(80, 180, 255, 0.2);
+        }
+        .weather-desc {
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: #c8dae8;
+        }
+        .weather-extra {
+            font-size: 1.0rem;
+            font-weight: 300;
+            color: #7a94b0;
+            margin-top: 2px;
+        }
+
+        /* ----- 3. SOLANA (jobb oldal) ----- */
+        .solana-label {
+            font-size: 1.0rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7a94b0;
+        }
+        .solana-price {
+            font-size: 3.6rem;
+            font-weight: 700;
+            color: #ffd966;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+            line-height: 1.2;
+        }
+        .solana-currency {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: #a0b8d0;
+            margin-left: 4px;
+        }
+
+        /* ----- Frissítési infó (alul, de nem zavaró) ----- */
+        .update-info {
+            font-size: 0.7rem;
+            color: #3e4f62;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+        }
+
+        /* Hibák és betöltés */
+        .loading, .error {
+            font-size: 1.0rem;
+            color: #e07c7c;
+            font-weight: 300;
+        }
+
+        /* ----- Extra kisebb képernyőkre (pl. 1280x600) ----- */
+        @media (max-width: 800px) {
+            .time { font-size: 3.0rem; }
+            .date { font-size: 1.2rem; }
+            .weather-temp { font-size: 2.2rem; }
+            .weather-desc { font-size: 1.2rem; }
+            .weather-icon { font-size: 2.8rem; }
+            .solana-price { font-size: 2.6rem; }
+            .dashboard { padding: 10px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <!-- BAL OLDAL: Óra -->
+    <div class="block">
+        <div class="time" id="clock">--:--:--</div>
+        <div class="date" id="date">----. --. --.</div>
+    </div>
+
+    <!-- KÖZÉP: Időjárás -->
+    <div class="block" id="weatherBlock">
+        <div class="weather-icon" id="weatherIcon">⏳</div>
+        <div class="weather-temp" id="weatherTemp">-- °C</div>
+        <div class="weather-desc" id="weatherDesc">Betöltés...</div>
+        <div class="weather-extra" id="weatherExtra"></div>
+    </div>
+
+    <!-- JOBB OLDAL: Solana -->
+    <div class="block">
+        <div class="solana-label">Solana (SOL)</div>
+        <div class="solana-price">
+            <span id="solValue">--</span><span class="solana-currency">HUF</span>
+        </div>
+    </div>
+
+    <!-- Frissítési idő (csak info) -->
+    <div class="update-info" id="updateInfo">Frissítés: --:--</div>
+</div>
+
+<script>
+    (function() {
+        "use strict";
+
+        // ----- Konfiguráció -----
+        const ERDOKERTES_LAT = 47.6725;
+        const ERDOKERTES_LON = 19.3078;
+        const TIMEZONE = 'Europe/Budapest';
+
+        // DOM elemek
+        const clockEl = document.getElementById('clock');
+        const dateEl = document.getElementById('date');
+        const weatherIconEl = document.getElementById('weatherIcon');
+        const weatherTempEl = document.getElementById('weatherTemp');
+        const weatherDescEl = document.getElementById('weatherDesc');
+        const weatherExtraEl = document.getElementById('weatherExtra');
+        const solValueEl = document.getElementById('solValue');
+        const updateInfoEl = document.getElementById('updateInfo');
+
+        // ----- Segéd: időjárási kód -> szöveg + ikon -----
+        function getWeatherTextAndIcon(code) {
+            if (code === 0) return { text: 'Tiszta, napos', icon: '☀️' };
+            if (code === 1) return { text: 'Derült', icon: '🌤️' };
+            if (code === 2) return { text: 'Gyengén felhős', icon: '⛅' };
+            if (code === 3) return { text: 'Borult', icon: '☁️' };
+            if (code === 45 || code === 48) return { text: 'Ködös', icon: '🌫️' };
+            if (code >= 51 && code <= 57) return { text: 'Szitálás', icon: '🌦️' };
+            if (code >= 61 && code <= 67) return { text: 'Eszik', icon: '🌧️' };
+            if (code >= 71 && code <= 77) return { text: 'Havazik', icon: '❄️' };
+            if (code >= 80 && code <= 82) return { text: 'Zápor', icon: '🌧️' };
+            if (code >= 85 && code <= 86) return { text: 'Havazás', icon: '🌨️' };
+            if (code >= 95 && code <= 99) return { text: 'Zivatar', icon: '⛈️' };
+            return { text: 'Ismeretlen', icon: '🌍' };
+        }
+
+        // ----- 1. Óra -----
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const mins = String(now.getMinutes()).padStart(2, '0');
+            const secs = String(now.getSeconds()).padStart(2, '0');
+            clockEl.textContent = `${hours}:${mins}:${secs}`;
+
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'];
+            dateEl.textContent = `${year}. ${month}. ${day}. ${weekdays[now.getDay()]}`;
+        }
+
+        // ----- 2. Időjárás (Open-Meteo) -----
+        async function fetchWeather() {
+            try {
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${ERDOKERTES_LAT}&longitude=${ERDOKERTES_LON}&current_weather=true&timezone=${TIMEZONE}`;
+                const resp = await fetch(url);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                const current = data.current_weather;
+                if (!current) throw new Error('Nincs adat');
+
+                const { text, icon } = getWeatherTextAndIcon(current.weathercode);
+                weatherIconEl.textContent = icon;
+                weatherTempEl.textContent = `${Math.round(current.temperature)} °C`;
+                weatherDescEl.textContent = text;
+                weatherExtraEl.textContent = `Szél: ${Math.round(current.windspeed)} km/h`;
+                return true;
+            } catch (err) {
+                console.warn('Időjárás hiba:', err);
+                weatherIconEl.textContent = '⚠️';
+                weatherTempEl.textContent = '-- °C';
+                weatherDescEl.textContent = 'Nem elérhető';
+                weatherExtraEl.textContent = '';
+                return false;
+            }
+        }
+
+        // ----- 3. Solana (CoinGecko) -----
+        async function fetchSolana() {
+            try {
+                const url = 'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=huf';
+                const resp = await fetch(url);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                if (data?.solana?.huf !== undefined) {
+                    const price = data.solana.huf;
+                    solValueEl.textContent = price.toLocaleString('hu-HU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    return true;
+                } else {
+                    throw new Error('Nem várt válasz');
+                }
+            } catch (err) {
+                console.warn('Solana hiba:', err);
+                solValueEl.textContent = '--';
+                return false;
+            }
+        }
+
+        // ----- Frissítési idő -----
+        function updateTimestamp() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            updateInfoEl.textContent = `Frissítés: ${h}:${m}`;
+        }
+
+        // ----- Minden frissítése -----
+        async function refreshAllData() {
+            updateClock();
+            await Promise.allSettled([fetchWeather(), fetchSolana()]);
+            updateTimestamp();
+        }
+
+        // ----- Időzítők indítása -----
+        setInterval(updateClock, 1000);
+        refreshAllData();
+        setInterval(refreshAllData, 300000); // 5 perc
+
+        // Ha újra előtérbe kerül a böngésző
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) refreshAllData();
+        });
+
+        console.log('✅ Fektetett dashboard elindult (1440x720)');
+    })();
+</script>
+</body>
+</html>
